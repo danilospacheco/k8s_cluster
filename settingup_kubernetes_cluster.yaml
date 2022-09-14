@@ -1,0 +1,19 @@
+#- import_playbook: playbooks/prerequisites.yml
+#- import_playbook: playbooks/setting_up_nodes.yml
+#- import_playbook: playbooks/configure_master_node.yml
+
+# tasks file for Kubernetes
+- name: Criação Cluster Kubernetes
+  hosts: k8s
+  remote_user: cmpdevops
+#  remote_user: root
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: playbook K8s
+      include: playbooks/requisites_new.yaml
+    - name: playbook K8s
+      include: playbooks/setting_up_nodes.yml
+    - name: playbook K8s
+      include: playbooks/configure_master_node.yml   

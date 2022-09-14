@@ -1,0 +1,18 @@
+---
+- hosts: all
+#  vars_files:
+#    - env_variables
+#    - /opt/web/ansible/production/k8s_cluster/kubernetes-and-ansible/env_variables
+  remote_user: cmpdevops
+  gather_facts: false
+  tasks:
+    - name: Disabling Swap on all nodes
+#      shell: swapoff -a
+      shell: date
+
+#    - name: Commenting Swap entries in /etc/fstab
+#      replace:
+#        path: /etc/fstab
+#        regexp: '(.*swap*)'
+#        replace: '#\1'
+
