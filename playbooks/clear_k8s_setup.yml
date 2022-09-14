@@ -1,0 +1,18 @@
+---
+# tasks file for Kubernetes
+- name: Limpando registros cluster Kubernetes
+  hosts: all
+  vars:
+    packages:
+    #- docker
+    - kubeadm
+    - kubectl
+    - kubelet
+  remote_user: cmpdevops
+#  remote_user: root
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: delete K8s
+      include: delete-k8s-config.yml

@@ -6,16 +6,32 @@
 - name: Criacao Cluster Kubernetes
   hosts: all
   vars_files:
-   - env_variables
+#   - env_variables
+   - /opt/web/ansible/production/k8s_cluster/vars/env_variables   
   remote_user: cmpdevops
 #  remote_user: root
   gather_facts: no
   become: yes
   become_user: root
   tasks:
+    - name: Limpando registros cluster Kubernetes
+      include: delete-k8s-config.yml
     - name: validando requisitos K8s
       include: requisites_new.yaml
     - name: playbook K8s
       include: setting_up_nodes_new.yml
+
+
+- name: Configuracao Kubernetes
+  hosts: master
+  vars_files:
+#   - env_variables
+   - /opt/web/ansible/production/k8s_cluster/vars/env_variables   
+  remote_user: cmpdevops
+#  remote_user: root
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
     - name: playbook K8s
-      include: configure_master_node_new.yml   
+      include: configure_master_node_new.yml  
