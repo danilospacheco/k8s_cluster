@@ -1,0 +1,1 @@
+kubeadm join 10.129.170.161:6443 --token lkdyy7.omt7oq4ehv8pe0ei --discovery-token-ca-cert-hash sha256:051ce3c2e88b23551edce111d43239c60cc7a3a6f4cc99c6323828b2a212cc51 

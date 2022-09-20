@@ -3,7 +3,8 @@
 #ad_addr:  192.168.2.1
 ad_addr: $(hostname -i)
 #cidr_v: 172.16.0.0/16
-cidr_v:  192.168.0.0/16
+#cidr_v:  192.168.0.0/16
+cidr_v: 10.244.0.0/16
 
 ###################################################################################
 # Dont Edit these below values, these are mandatory to configure kubernetes cluster
@@ -21,6 +22,9 @@ ports:
 - "6443/tcp"
 - "10250/tcp"
 
-token_file: join_token
+src_dir: '/opt/web/ansible/production/k8s_cluster'
+dir: '/tmp/'
+
+token_file: /tmp/join_token
 ###################################################################################
 # Dont Edit these above values, these are mandatory to configure kubernetes cluster

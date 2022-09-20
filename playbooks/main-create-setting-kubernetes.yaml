@@ -14,8 +14,6 @@
   become: yes
   become_user: root
   tasks:
-    - name: Limpando registros de cluster Kubernetes antigo
-      include: delete-k8s-config.yaml
     - name: validando requisitos K8s
       include: pre-requisitos.yaml
     - name: playbook K8s

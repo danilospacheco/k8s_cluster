@@ -1,10 +1,10 @@
 ---
-- name: Creating a repository file for Kubernetes
+- name: Criando repo - Kubernetes
   file:
    path: /etc/yum.repos.d/kubernetes.repo
    state: touch
 
-- name: Adding repository details in Kubernetes repo file.
+- name: Adicinando as informacoes no repositorio - kubernetes.
   blockinfile:
    path: /etc/yum.repos.d/kubernetes.repo
    block: |
@@ -17,20 +17,20 @@
     gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
       https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 
-- name: Installing required packages
+- name: Instalando pacotes necessários
   yum:
    name: "{{ item }}"
    state: present
   with_items: "{{ packages }}"
 
-- name: Starting and Enabling the required services
+- name: Iniciando e habilitando os services
   service:
    name: "{{ item }}"
    state: started
    enabled: yes
   with_items: "{{ services }}"
 
-- name: Allow Network Ports in Firewalld
+- name: Liberando portas firewalld
   firewalld:
    port: "{{ item }}"
    state: enabled
@@ -38,5 +38,5 @@
    immediate: yes
   with_items: "{{ ports }}"
 
-- name: Enabling Bridge Firewall Rule
+- name: Habilitando a regra de firewall
   shell: "echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"

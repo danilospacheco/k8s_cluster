@@ -1,0 +1,17 @@
+---
+# - import_playbook: playbooks/configure_worker_nodes.yml
+
+# tasks file for configure worker ndes
+- name: Adicionando workers ao Cluster Kubernetes
+  hosts: worker
+  vars_files:
+#   - env_variables
+   - /opt/web/ansible/production/k8s_cluster/vars/env_variables   
+  remote_user: cmpdevops
+#  remote_user: root
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: configure workers
+      include: configure_worker.yaml

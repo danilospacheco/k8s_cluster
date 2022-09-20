@@ -1,0 +1,10 @@
+---
+- name: Copiando token para worker
+  #copy: src={{ token_file }} dest=/tmp/join_token
+  copy: src=join-command dest=/tmp/join-command.sh mode=0777
+
+- name: Adicionando worker ao cluster
+  command: sh /tmp/join-command.sh
+
+#- name: Joining worker nodes with kubernetes master
+#  shell: "`grep -i 'kubeadm join' /tmp/join_token`"

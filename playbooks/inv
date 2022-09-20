@@ -1,8 +1,1 @@
-[master]
-#kubernetes-master ansible_host=10.129.170.159
-10.129.170.161
-[worker]
-#kubernetes-worker1 ansible_host=10.129.170.160
-#kubernetes-worker2 ansible_host=10.129.170.161
-10.129.170.159
-10.129.170.160
+../inventario/hosts

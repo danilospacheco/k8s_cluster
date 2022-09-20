@@ -7,12 +7,12 @@
 ##  tasks:
 ##   - name: Disabling swap on all nodes
 ##      shell: date
-- name: Disabling Swap on all nodes
+- name: Desabilitand Swap - Todas workers
   #vars_files: 
    # - env_variables
   shell: swapoff -a
 
-- name: Commenting Swap entries in /etc/fstab
+- name: Comentando entrada Swap - /etc/fstab
   replace:
     path: /etc/fstab
     regexp: '(.*swap*)'

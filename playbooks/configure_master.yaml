@@ -1,0 +1,43 @@
+---
+#- hosts: master
+#  tasks:
+- name: Baixando imagens cluster kubernetes 
+  shell: kubeadm config images pull
+
+- name: Iniciando cluster Kubernetes
+  shell: kubeadm init --kubernetes-version=v1.23.0 --apiserver-advertise-address {{ad_addr}} --pod-network-cidr={{cidr_v}}
+  register: output
+
+#- name: Storing Logs and Generated token for future purpose.
+#  local_action: copy content={{ output.stdout }} dest={{ token_file }}
+
+# Generate join-command to add new nodes -- will be skipped for now
+- name: Gerando comando join
+  command: kubeadm token create --print-join-command
+  register: join_command
+  
+- name: copiando arquivo JOIN localmente
+  local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+
+
+#- name: create .kube directory
+#  file:
+#   path: $HOME/.kube
+#   state: directory
+#   mode: 0755
+
+- name: copiando e configurando kubectl para o novo cluster
+  shell: |
+   mkdir -p $HOME/.kube
+   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+- name: copiando arquivo yaml Network Add-on - flannel
+  copy:
+    remote_src: no
+    src: '{{ src_dir }}/kube-flannel.yaml'
+    dest: '{{ dir }}/kube-flannel.yaml'
+    backup: no    
+
+- name: Instalando Network Add-on - flannel
+  command: kubectl apply -f {{ dir }}/kube-flannel.yaml

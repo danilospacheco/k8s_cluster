@@ -15,4 +15,4 @@
   become_user: root
   tasks:
     - name: delete K8s
-      include: delete-k8s-config.yml
+      include: delete-k8s-config.yaml
